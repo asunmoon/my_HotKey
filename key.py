@@ -4,9 +4,8 @@ import pynput
 import time
 
 my_key=["a","l","t"]#请使用非特殊键
-
 front=2 #起始工具编号
-len =3  #工具数量
+my_len =3  #工具数量
 flag=False
 i=0
 j=0
@@ -23,7 +22,6 @@ def on_press(key):
             if(j==len(my_key)):
                 flag=True
                 j=0
-            print("true",j)
         else:
             j=0
             flag=False
@@ -32,7 +30,7 @@ def on_press(key):
             global i
             with cv:
                 i += 1
-                i = i % len       
+                i = i % my_len       
                 cv.notify()  
     except AttributeError:
         pass
@@ -47,7 +45,7 @@ def press_key(ctr,i):
         ctr.release(pynput.keyboard.Key.backspace)
     global front
     str_i=str(i+front)  
-    print("alt+"+str_i)
+    
     # time.sleep(0.1)   # 增加延迟
     ctr.press(pynput.keyboard.Key.alt_l)
     # time.sleep(0.05)  # 增加延迟
@@ -59,8 +57,7 @@ def press_key(ctr,i):
     # time.sleep(0.2)   # 增加延迟
 def main_loop():
     ctr = keyboard.Controller()
-    time.sleep(1)
-    print("begin")
+    # time.sleep(1)
     while True:
         with cv:
             cv.wait()  
@@ -73,7 +70,5 @@ if __name__ == '__main__':
     
     with cv:
         cv.notify()  
-        print("b")
-    
     main_loop()
     
